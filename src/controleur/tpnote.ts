@@ -1,4 +1,4 @@
-import { vueTPnote } from "../controleur/class_tpnote";
+import { vueTPnote } from "../controleur/class_tpnote.js";
 
 vueTPnote.init({
   div_affichage: document.querySelector("[id=div_affichage]"),
@@ -13,7 +13,8 @@ vueTPnote.init({
   radio_rdc: document.querySelector("[id=radio_rdc]"),
   radio_premier: document.querySelector("[id=radio_premier]"),
   radio_deuxième: document.querySelector("[id=radio_deuxième]"),
-  radio_troisième: document.querySelector("[id=radio_troisième]"),
+  radio_troisième: document.querySelector("[id=radio_troisieme]"),
   btn_valider: document.querySelector("[id=btn_valider]"),
   btn_annuler: document.querySelector("[id=btn_annuler]"),
+  compteur: document.querySelector("[id=compteur]"),
 });

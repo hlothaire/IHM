@@ -14,6 +14,7 @@ type TTpnoteForm = {
   radio_troisième: HTMLInputElement;
   btn_valider: HTMLInputElement;
   btn_annuler: HTMLInputElement;
+  compteur: HTMLSpanElement;
 };
 
 class VueTPnote {
@@ -44,6 +45,7 @@ class VueTPnote {
     const noLigne = this.form.select_salles.selectedIndex;
     if (noLigne > -1) {
       this.form.select_salles.remove(noLigne);
+      this.mettreAJourCompteur();
     }
   }
 
@@ -86,36 +88,45 @@ class VueTPnote {
 
       this.form.edt_nom.value = "";
       this.form.select_batiment.selectedIndex = 0;
-      this.form.radio_rdc.checked = false;
-      this.form.radio_premier.checked = false;
-      this.form.radio_deuxième.checked = false;
-      this.form.radio_troisième.checked = false;
-      this.form.chk_info.checked = false;
+      if (this.form.radio_rdc) this.form.radio_rdc.checked = false;
+      if (this.form.radio_premier) this.form.radio_premier.checked = false;
+      if (this.form.radio_deuxième) this.form.radio_deuxième.checked = false;
+      if (this.form.radio_troisième) this.form.radio_troisième.checked = false;
+      if (this.form.chk_info) this.form.chk_info.checked = false;
       this.form.edt_machines.value = "";
 
       this.form.div_formulaire.hidden = true;
       this.form.div_affichage.style.pointerEvents = "auto";
+      this.mettreAJourCompteur();
     } else {
       alert("Erreur dans le formulaire: " + erreur);
     }
   }
 
   private _getEtageSelectionne(): string {
-    if (this._form.radio_rdc.checked) return "Rdc";
-    if (this._form.radio_premier.checked) return "1er étage";
-    if (this._form.radio_deuxième.checked) return "2ème étage";
-    if (this._form.radio_troisième.checked) return "3ème étage";
+    if (this._form.radio_rdc && this._form.radio_rdc.checked) return "Rdc";
+    if (this._form.radio_premier && this._form.radio_premier.checked)
+      return "1er étage";
+    if (this._form.radio_deuxième && this._form.radio_deuxième.checked)
+      return "2ème étage";
+    if (this._form.radio_troisième && this._form.radio_troisième.checked)
+      return "3ème étage";
     return "";
+  }
+
+  private mettreAJourCompteur(): void {
+    const nombreOptions = this.form.select_salles.options.length;
+    this.form.compteur.textContent = nombreOptions.toString();
   }
 
   annuler(): void {
     this.form.edt_nom.value = "";
     this.form.select_batiment.selectedIndex = 0;
-    this.form.radio_rdc.checked = false;
-    this.form.radio_premier.checked = false;
-    this.form.radio_deuxième.checked = false;
-    this.form.radio_troisième.checked = false;
-    this.form.chk_info.checked = false;
+    if (this.form.radio_rdc) this.form.radio_rdc.checked = false;
+    if (this.form.radio_premier) this.form.radio_premier.checked = false;
+    if (this.form.radio_deuxième) this.form.radio_deuxième.checked = false;
+    if (this.form.radio_troisième) this.form.radio_troisième.checked = false;
+    if (this.form.chk_info) this.form.chk_info.checked = false;
     this.form.edt_machines.value = "";
 
     this.form.div_affichage.style.pointerEvents = "auto";
@@ -123,5 +134,5 @@ class VueTPnote {
   }
 }
 
-let vueTPnote = new VueTPnote;
-export { vueTPnote }
+let vueTPnote = new VueTPnote();
+export { vueTPnote };
